@@ -35,7 +35,7 @@ namespace DankseIt.MuncipalityTax.Api.Controllers
         public async Task<IActionResult> Post([FromBody] dynamic value)
         {
             _logger.LogInformation("Post End point Called to create tax");
-            var result = await _taxCalculator.CreateTax(value.ToString());
+            var result = await _taxCalculator.CreateTax(value?.ToString());
             if (result) return Ok("Success");
             else return BadRequest("Failed");
         }

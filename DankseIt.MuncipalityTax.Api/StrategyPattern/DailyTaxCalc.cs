@@ -8,7 +8,7 @@ namespace DankseIt.MuncipalityTax.Api.StrategyPattern
     {
         public override double ProcessTax(DateTime date, MuncipalTax muncipalTax)
         {
-            var taxAmount = 0.0;
+            double taxAmount = 0;
             var dateList = muncipalTax.DailyTax.Dates.Split(',').ToList();
             foreach (var item in dateList)
             {

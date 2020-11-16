@@ -29,7 +29,7 @@ namespace DankseIt.MuncipalityTax.Api.Business
         /// <returns></returns>
         public async Task<double> CalculateTax(string muncipality, string date)
         {
-            double taxrate = 0.0;
+            double taxrate = 0;
             try
             {
                 var taxDetails = JsonSerializer.Deserialize<MuncipalTax>(_memoryCache.Get(muncipality)?.ToString());//Can be replaced with database
@@ -40,17 +40,17 @@ namespace DankseIt.MuncipalityTax.Api.Business
 
                     _taxCalculationStrategy.SetSortStrategy(new DailyTaxCalc());
                     taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
-                    if (taxrate == 0.0)
+                    if (taxrate == 0)
                     {
                         _taxCalculationStrategy.SetSortStrategy(new WeeklyTaxCalc());
                         taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
                     }
-                    if (taxrate == 0.0)
+                    if (taxrate == 0)
                     {
                         _taxCalculationStrategy.SetSortStrategy(new MonthlyTaxCalc());
                         taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
                     }
-                    if (taxrate == 0.0)
+                    if (taxrate == 0)
                     {
                         _taxCalculationStrategy.SetSortStrategy(new YearlyTaxCalc());
                         taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
