@@ -1,4 +1,5 @@
 ﻿using DankseIt.MuncipalityTax.Api.Models;
+using DankseIt.MuncipalityTax.Api.StrategyPattern;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,23 +12,56 @@ namespace DankseIt.MuncipalityTax.Api.Business
     {
         private readonly ILogger<TaxCalculator> _logger;
         private readonly IMemoryCache _memoryCache;
+        private readonly ITaxCalculationStrategy _taxCalculationStrategy;
 
-        public TaxCalculator(ILogger<TaxCalculator> logger, IMemoryCache memoryCache)
+        public TaxCalculator(ILogger<TaxCalculator> logger, IMemoryCache memoryCache, ITaxCalculationStrategy taxCalculationStrategy)
         {
             _logger = logger;
             _memoryCache = memoryCache;
+            _taxCalculationStrategy = taxCalculationStrategy;
         }
 
         /// <summary>
         /// CalculateTax
         /// </summary>
         /// <param name="muncipality"></param>
-        /// <param name="dateTime"></param>
+        /// <param name="date"></param>
         /// <returns></returns>
-        public async Task<double> CalculateTax(string muncipality, DateTime dateTime)
+        public async Task<double> CalculateTax(string muncipality, string date)
         {
             double taxrate = 0.0;
-            _logger.LogInformation($"Calculating tax for {muncipality} on {dateTime}");
+            try
+            {
+                var taxDetails = JsonSerializer.Deserialize<MuncipalTax>(_memoryCache.Get(muncipality).ToString());//Can be replaced with database
+                if (!string.IsNullOrWhiteSpace(muncipality) && taxDetails != null && !string.IsNullOrWhiteSpace(date))
+                {
+                    _logger.LogInformation($"Calculating tax for {muncipality} on {date}");
+                    DateTime inputDate = Convert.ToDateTime(date);
+
+                    _taxCalculationStrategy.SetSortStrategy(new DailyTaxCalc());
+                    taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
+                    if (taxrate == 0.0)
+                    {
+                        _taxCalculationStrategy.SetSortStrategy(new WeeklyTaxCalc());
+                        taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
+                    }
+                    if (taxrate == 0.0)
+                    {
+                        _taxCalculationStrategy.SetSortStrategy(new MonthlyTaxCalc());
+                        taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
+                    }
+                    if (taxrate == 0.0)
+                    {
+                        _taxCalculationStrategy.SetSortStrategy(new YearlyTaxCalc());
+                        taxrate = _taxCalculationStrategy.ProcessTax(inputDate, taxDetails);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Exception in Fetching tax for muncipality:{muncipality} | date:{date}");
+            }
             return taxrate;
         }
 
@@ -42,7 +76,7 @@ namespace DankseIt.MuncipalityTax.Api.Business
             {
                 var model = JsonSerializer.Deserialize<MuncipalTax>(values);
                 _logger.LogInformation($"Create tax for muncipality:{model.MuncipalityName}");
-                _memoryCache.Set(model.MuncipalityName, values);//Can be replaced with DB
+                _memoryCache.Set(model.MuncipalityName, values);//Can be replaced with DataBase
                 return true;
             }
             catch (Exception ex)

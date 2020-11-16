@@ -1,4 +1,5 @@
 using DankseIt.MuncipalityTax.Api.Business;
+using DankseIt.MuncipalityTax.Api.StrategyPattern;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,8 @@ namespace DankseIt.MuncipalityTax.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-            services.AddSingleton<ITaxCalculator, TaxCalculator>();
+            services.AddTransient<ITaxCalculator, TaxCalculator>();
+            services.AddTransient<ITaxCalculationStrategy, TaxCalculationStrategy>();
             services.AddControllers();
         }
 

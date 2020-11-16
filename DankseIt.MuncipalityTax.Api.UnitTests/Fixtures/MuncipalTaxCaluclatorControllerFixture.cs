@@ -2,6 +2,7 @@
 {
     using DankseIt.MuncipalityTax.Api.Business;
     using DankseIt.MuncipalityTax.Api.Controllers;
+    using DankseIt.MuncipalityTax.Api.StrategyPattern;
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
@@ -20,6 +21,7 @@
         public readonly Mock<ILogger<MuncipalTaxCaluclatorController>> controllerLoggerMock;
         public readonly Mock<ILogger<TaxCalculator>> taxCalculatorLoggerMock;
         public readonly TaxCalculator _taxCalulator;
+        public readonly TaxCalculationStrategy strategy;
         public IMemoryCache InMemoryCache;
 
         public MuncipalTaxCaluclatorControllerFixture()
@@ -27,12 +29,13 @@
             controllerLoggerMock = new Mock<ILogger<MuncipalTaxCaluclatorController>>();
             taxCalculatorLoggerMock = new Mock<ILogger<TaxCalculator>>();
             InMemoryCache = new MemoryCache(new MemoryCacheOptions { });
-            _taxCalulator = new TaxCalculator(taxCalculatorLoggerMock.Object, InMemoryCache);
+            strategy = new TaxCalculationStrategy();
+            _taxCalulator = new TaxCalculator(taxCalculatorLoggerMock.Object, InMemoryCache, strategy);
         }
 
-        public string GetJsonData()
+        public string GetJsonData(string muncipality)
         {
-            using StreamReader r = new StreamReader("CreateTaxSample.json");
+            using StreamReader r = new StreamReader(muncipality + "Tax.json");
             string json = r.ReadToEnd();
             return json;
         }

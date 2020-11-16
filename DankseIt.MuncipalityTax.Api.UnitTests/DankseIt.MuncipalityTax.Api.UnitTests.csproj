@@ -7,11 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CreateTaxSample.json" />
+    <None Remove="BrazilTax.json" />
+    <None Remove="ColumbiaTax.json" />
+    <None Remove="SanAndersTax.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="CreateTaxSample.json">
+    <Content Include="BrazilTax.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="ColumbiaTax.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="SanAndersTax.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

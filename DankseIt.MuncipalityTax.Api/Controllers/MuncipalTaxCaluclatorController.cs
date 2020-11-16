@@ -22,9 +22,12 @@ namespace DankseIt.MuncipalityTax.Api.Controllers
 
         // GET api/<MuncipalTaxCaluclatorController>/5
         [HttpGet("{id}")]
-        public string Get(string muncipalityName, string date)
+        public async Task<IActionResult> Get(string muncipalityName, string date)
         {
-            return "value";
+            _logger.LogInformation($"Get End point Called for {muncipalityName} | date:{date}");
+            var result = await _taxCalculator.CalculateTax(muncipalityName, date);
+            if (result == 0.0) return BadRequest("Not Able to match details");
+            else return Ok(result);
         }
 
         // POST api/<MuncipalTaxCaluclatorController>
