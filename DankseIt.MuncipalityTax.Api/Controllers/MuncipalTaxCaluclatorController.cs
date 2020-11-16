@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DankseIt.MuncipalityTax.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tax")]
     [ApiController]
     public class MuncipalTaxCaluclatorController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace DankseIt.MuncipalityTax.Api.Controllers
         }
 
         // GET api/<MuncipalTaxCaluclatorController>/5
-        [HttpGet("{id}")]
+        [HttpGet("getTax")]
         public async Task<IActionResult> Get(string muncipalityName, string date)
         {
             _logger.LogInformation($"Get End point Called for {muncipalityName} | date:{date}");
@@ -31,11 +31,11 @@ namespace DankseIt.MuncipalityTax.Api.Controllers
         }
 
         // POST api/<MuncipalTaxCaluclatorController>
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string value)
+        [HttpPost("createTax")]
+        public async Task<IActionResult> Post([FromBody] dynamic value)
         {
             _logger.LogInformation("Post End point Called to create tax");
-            var result = await _taxCalculator.CreateTax(value);
+            var result = await _taxCalculator.CreateTax(value.ToString());
             if (result) return Ok("Success");
             else return BadRequest("Failed");
         }

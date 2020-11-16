@@ -32,7 +32,7 @@ namespace DankseIt.MuncipalityTax.Api.Business
             double taxrate = 0.0;
             try
             {
-                var taxDetails = JsonSerializer.Deserialize<MuncipalTax>(_memoryCache.Get(muncipality).ToString());//Can be replaced with database
+                var taxDetails = JsonSerializer.Deserialize<MuncipalTax>(_memoryCache.Get(muncipality)?.ToString());//Can be replaced with database
                 if (!string.IsNullOrWhiteSpace(muncipality) && taxDetails != null && !string.IsNullOrWhiteSpace(date))
                 {
                     _logger.LogInformation($"Calculating tax for {muncipality} on {date}");

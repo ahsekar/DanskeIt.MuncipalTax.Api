@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "854139a8-25ca-41dd-9384-9f9e7793122e",
+		"name": "TaxApiCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateTax",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\"MuncipalityName\": \"Brazil\",\r\n  \"YearlyTax\": {\r\n    \"FromDate\": \"01/01/2020\",\r\n    \"ToDate\": \"31/12/2020\",\r\n    \"TaxAmount\": 0.1\r\n  },\r\n  \"MonthlyTax\": {\r\n    \"FromDate\": \"01/05/2020\",\r\n    \"ToDate\": \"31/05/2020\",\r\n    \"TaxAmount\": 0.2\r\n  },\r\n  \"WeeklyTax\": {\r\n    \"FromDate\": \"13/07/2020\",\r\n    \"ToDate\": \"19/07/2020\",\r\n    \"TaxAmount\": 0.3\r\n  },\r\n  \"DailyTax\": {\r\n    \"Dates\": \"06/06/2020,07/07/2020,08/08/2020\",\r\n    \"TaxAmount\": 0.4\r\n  }}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44394/api/tax/createTax",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44394",
+					"path": [
+						"api",
+						"tax",
+						"createTax"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTax",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44394/api/tax/getTax?muncipalityName=Brazil&date=07/07/2020",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44394",
+					"path": [
+						"api",
+						"tax",
+						"getTax"
+					],
+					"query": [
+						{
+							"key": "muncipalityName",
+							"value": "Brazil"
+						},
+						{
+							"key": "date",
+							"value": "07/07/2020"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
