@@ -9,3 +9,6 @@ The format in which we can send values to API is JSON. Sample json has been prov
 # For Database Side
 Instead of using Database used In memory cache for storing tax values.
 WHen application starts make sure to call the POST end point and then the GET end point
+
+# Code Present in Master Branch
+# Postman collection and sample added under folder "File"
