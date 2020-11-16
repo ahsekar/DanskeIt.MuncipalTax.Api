@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DankseIt.MuncipalityTax.Api", "DankseIt.MuncipalityTax.Api\DankseIt.MuncipalityTax.Api.csproj", "{0DB164A4-346C-44AF-99DD-1F5D98EBA151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DankseIt.MuncipalityTax.Api.Tests", "DankseIt.MuncipalityTax.Api.Tests\DankseIt.MuncipalityTax.Api.Tests.csproj", "{7C85C790-2F50-4414-A4C0-7741E6D85914}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DankseIt.MuncipalityTax.Api.UnitTests", "DankseIt.MuncipalityTax.Api.UnitTests\DankseIt.MuncipalityTax.Api.UnitTests.csproj", "{F1533329-CA57-4AE3-8944-E0AC81AF6E0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{0DB164A4-346C-44AF-99DD-1F5D98EBA151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB164A4-346C-44AF-99DD-1F5D98EBA151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB164A4-346C-44AF-99DD-1F5D98EBA151}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C85C790-2F50-4414-A4C0-7741E6D85914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C85C790-2F50-4414-A4C0-7741E6D85914}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C85C790-2F50-4414-A4C0-7741E6D85914}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C85C790-2F50-4414-A4C0-7741E6D85914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1533329-CA57-4AE3-8944-E0AC81AF6E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1533329-CA57-4AE3-8944-E0AC81AF6E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1533329-CA57-4AE3-8944-E0AC81AF6E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1533329-CA57-4AE3-8944-E0AC81AF6E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
