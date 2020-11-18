@@ -9,13 +9,16 @@ namespace DankseIt.MuncipalityTax.Api.StrategyPattern
         public override double ProcessTax(DateTime date, MuncipalTax muncipalTax)
         {
             double taxAmount = 0;
-            var dateList = muncipalTax.DailyTax.Dates.Split(',').ToList();
-            foreach (var item in dateList)
+            if (muncipalTax?.DailyTax != null)
             {
-                if (date == DateTime.Parse(item))
+                var dateList = muncipalTax?.DailyTax?.Dates?.Split(',')?.ToList();
+                foreach (var item in dateList)
                 {
-                    taxAmount = muncipalTax.DailyTax.TaxAmount;
-                    break;
+                    if (date == DateTime.Parse(item))
+                    {
+                        taxAmount = muncipalTax.DailyTax.TaxAmount;
+                        break;
+                    }
                 }
             }
             return taxAmount;

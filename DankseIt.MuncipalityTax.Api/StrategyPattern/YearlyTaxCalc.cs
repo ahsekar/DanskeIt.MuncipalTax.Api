@@ -8,9 +8,10 @@ namespace DankseIt.MuncipalityTax.Api.StrategyPattern
         public override double ProcessTax(DateTime date, MuncipalTax muncipalTax)
         {
             double taxAmount = 0;
-            if (date >= Convert.ToDateTime(muncipalTax.YearlyTax.FromDate) && date <= Convert.ToDateTime(muncipalTax.YearlyTax.ToDate))
+            if (muncipalTax?.YearlyTax != null)
             {
-                taxAmount = muncipalTax.WeeklyTax.TaxAmount;
+                if (date >= Convert.ToDateTime(muncipalTax?.YearlyTax.FromDate) && date <= Convert.ToDateTime(muncipalTax?.YearlyTax.ToDate))
+                    taxAmount = muncipalTax.YearlyTax.TaxAmount;
             }
             return taxAmount;
         }
